@@ -21,15 +21,15 @@ wss.on('connection', (ws) => {
 	const numClients = wss.clients.size;
 	console.log('Clients connected', numClients);
 
-	wss.broadcast('Current visitors: ', numClients);
+	wss.broadcast(`Current visitors: ${numClients}`);
 	if (ws.readyState === ws.OPEN) {
-		ws.send('Welcome mortal');
+		ws.send('Welcome mortal', numClients);
 	}
 
 	ws.on('close', function close() {
-		wss.broadcast('Current visitors: ', numClients);
+		wss.broadcast(`Current visitors: ${numClients}`);
 
-		console.log('A client has disconnecte');
+		console.log('A client has disconnected');
 	});
 });
 
